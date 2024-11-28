@@ -4,4 +4,4 @@ obj_um = user_model()
 
 @app.route("/user/signup")
 def signup():
-    return obj_um.user_model_test()
+    return obj_um.sql_query()

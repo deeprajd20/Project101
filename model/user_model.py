@@ -1,23 +1,19 @@
-import mysql.connector
-from mysql.connector import Error
-
+import psycopg2
+import json
 class user_model:
-    # def __init__(self):
-    #     try:
-    #         temp_data = {
-    #             "host": "127.0.0.1",
-    #             "port": 3306,
-    #             "user": "root",
-    #             "password": "root"
-    #         }
-    #         connection = mysql.connector.connect(**temp_data)
-    #         if connection.is_connected():
-    #             print("Successfully connected to the database")
-    #     except Error as e:
-    #         print(f"Error connecting to the database: {e}")
-    #         connection = None
-        
+    def __init__(self):
+        try:
+           
+            self.conn = psycopg2.connect(
+                database="test_database", user='postgres', password='root', host='127.0.0.1', port= '5432'
+                )
+            self.cur = self.conn.cursor()
+            print("Connection established")
 
-    def user_model_test(self):
-        return "This is testing"
+        except:
+            print("Coneection Failed")
 
+    def sql_query(self):
+        self.cur.execute("SELECT * FROM public.tab")
+        result = self.cur.fetchall()
+        return json.dumps(result)
